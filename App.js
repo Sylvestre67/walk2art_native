@@ -24,6 +24,9 @@ let store = createStore(
 	applyMiddleware(thunkMiddleware,logger),
 );
 
+import Header from './layout/Header';
+import Footer from './layout/Footer';
+
 import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import StaticMap from './map/StaticMap';
 
@@ -36,12 +39,19 @@ class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<View style={styles.container}>
-					<StaticMap
-						provider={PROVIDER_DEFAULT}
-					/>
-					<Text style={styles.message}>
-						Walk2.art
-					</Text>
+					<View style={styles.spacer}>
+					</View>
+					<View style={styles.header}>
+						<Header />
+					</View>
+					<View style={styles.body}>
+						<StaticMap
+							provider={PROVIDER_DEFAULT}
+						/>
+					</View>
+					<View style={styles.footer}>
+						<Footer />
+					</View>
 				</View>
 			</Provider>
 		)
@@ -51,8 +61,22 @@ class App extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		...StyleSheet.absoluteFillObject,
-		justifyContent: 'flex-end',
-		alignItems: 'center',
+		flex:1,
+	},
+	spacer:{
+		height:20,
+		backgroundColor:'rgb(255, 255, 255)',
+	},
+	header:{
+		height:20,
+		backgroundColor:'rgb(255, 255, 255)',
+	},
+	body:{
+		flex:1,
+	},
+	footer:{
+		height:40,
+		backgroundColor:'rgb(255, 255, 255)',
 	},
 	scrollview: {
 		alignItems: 'center',

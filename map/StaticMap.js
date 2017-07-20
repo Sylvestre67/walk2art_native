@@ -89,8 +89,6 @@ class _Container extends React.Component {
 	}
 }
 
-/*{this.renderMarker()}*/
-
 _Container.propTypes = {
 	provider: MapView.ProviderPropType,
 };
@@ -103,11 +101,10 @@ const styles = StyleSheet.create({
 	},
 	scrollview: {
 		alignItems: 'center',
-		paddingVertical: 20,
 	},
 	map: {
 		width: width,
-		height: (height * .70),
+		height: height,
 	},
 });
 
