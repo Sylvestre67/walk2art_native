@@ -5,42 +5,55 @@ import {
 	StyleSheet,
 	View,
 	Text,
+	TouchableWithoutFeedback,
 	Image
 } from 'react-native';
 
-class Footer extends React.Component {
+import { connect } from 'react-redux'
+import { changeTab } from '../store/actions';
+
+class _Container extends React.Component {
+
+	_changeTab (i) {
+		const { changeTab } = this.props;
+		changeTab(i)
+	}
 
 	render() {
+		const tabs = this.props.tabs.tabs.map((tab,index,tabs) => {
+			return <View
+					key={index}>
+						<TouchableWithoutFeedback
+							onPress={() => {this._changeTab(index)}}>
+							<Icon
+								name={tab.icon.name}
+								type={tab.icon.type} />
+						</TouchableWithoutFeedback>
+					</View>
+		});
+
 		return (
 			<View style={styles.footer}>
-				<View>
-					<Icon
-						name='ios-navigate-outline'
-						type='ionicon' />
-
-				</View>
-
-				<View>
-					<Icon
-						name='ios-map-outline'
-						type='ionicon' />
-				</View>
-
-				<View>
-					<Icon
-						name='ios-list-outline'
-						type='ionicon' />
-				</View>
-
-				<View>
-					<Icon
-						name='ios-information-circle-outline'
-						type='ionicon' />
-				</View>
+				{tabs}
 			</View>
 		);
 	}
 }
+
+
+//////////////////////////////////////////////////////
+const mapStateToProps = (state) => {
+	return {
+		tabs: state.tabsNav
+	}
+};
+
+const Footer = connect(
+	mapStateToProps,
+	{
+		changeTab: (route) => changeTab(route)
+	}
+)(_Container);
 
 const styles = StyleSheet.create({
 	footer: {

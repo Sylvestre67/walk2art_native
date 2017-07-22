@@ -7,6 +7,8 @@ export const REFRESH_ACTIVE_PLACES = 'REFRESH_ACTIVE_PLACES';
 export const REQUEST_PLACES = 'REQUEST_PLACES';
 export const RECEIVE_PLACES = 'RECEIVE_PLACES';
 
+export const CHANGE_TAB = 'CHANGE_TAB';
+
 /*
  * other constants
  */
@@ -61,5 +63,12 @@ export function fetchPlaces() {
 			).then((place) => {
 				dispatch(refreshActivePlace(place));
 			})
+	}
+}
+
+export function changeTab (index) {
+	return {
+		type: CHANGE_TAB,
+		index
 	}
 }

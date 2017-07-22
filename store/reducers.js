@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { RECEIVE_PLACES, REQUEST_PLACES, REFRESH_ACTIVE_PLACES } from './actions'
+import { RECEIVE_PLACES, REQUEST_PLACES, REFRESH_ACTIVE_PLACES, CHANGE_TAB } from './actions'
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -8,6 +8,27 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const tabs = [
+	{ key: 'map', title: 'Map',
+		icon: {
+			name:'ios-map-outline',
+			type:'ionicon'
+		}
+	},
+	{ key: 'list', title: 'List',
+		icon: {
+			name:'ios-list-outline',
+			type:'ionicon'
+		}
+	},
+	{ key: 'about', title: 'About',
+		icon: {
+			name:'ios-information-circle-outline',
+			type:'ionicon'
+		}
+	}
+];
 
 const initialState = {
 	places:{
@@ -19,6 +40,10 @@ const initialState = {
 			id: undefined,
 			images: undefined
 		},
+	},
+	tabs: {
+		index: 0,
+		tabs
 	}
 };
 
@@ -51,8 +76,24 @@ function places(state = initialState.places, action) {
 	}
 }
 
+function tabsNav (state = initialState.tabs, action) {
+
+	if (action.index === state.index) return state;
+
+	switch (action.type) {
+		case CHANGE_TAB:
+			return {
+				...state,
+				index: action.index
+			};
+		default:
+			return state
+	}
+}
+
 const streetArtApp = combineReducers({
-	places
+	places,
+	tabsNav
 });
 
 export default streetArtApp;
