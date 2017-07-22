@@ -53,7 +53,6 @@ class Tabs extends React.Component {
 
 	render () {
 		const tabIndex = this.props.tabs.index;
-		const tabList = this.props.tabs.tabs;
 
 		return (
 			<View style={styles.container}>
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
 		backgroundColor:'rgb(255, 255, 255)',
 	},
 	header:{
-		height:20,
+		height:30,
 		backgroundColor:'rgb(255, 255, 255)',
 	},
 	body:{

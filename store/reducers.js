@@ -42,7 +42,7 @@ const initialState = {
 		},
 	},
 	tabs: {
-		index: 0,
+		index: 1,
 		tabs
 	}
 };

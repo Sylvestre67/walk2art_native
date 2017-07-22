@@ -50,11 +50,13 @@ class _Container extends React.Component {
 		let markers = [];
 
 		_.forIn(this.props.places.dict, (place,index,places) => {
+
 			markers.push(<MapView.Marker
 				key={index}
-				title="This is a title"
+				title={place.images[0].title}
 				description="This is a description"
 				coordinate={place}
+				image={require('./pin.png')}
 			/>)
 		});
 

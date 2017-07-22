@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	Text,
-	Switch,
+	Switch
 } from 'react-native';
 
 import StaticMap from '../map/StaticMap';

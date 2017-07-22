@@ -1,21 +1,36 @@
 import React from 'react';
 import {
-	Platform,
 	View,
-	Button,
+	Image,
 	StyleSheet,
-	TouchableOpacity,
-	ScrollView,
-	Text,
-	Switch,
+	Dimensions
 } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 class AboutView extends React.Component {
 	render() {
 		return (
-			<Text>AboutView</Text>
+			<View style={styles.wrapper}>
+				<Image
+					style={styles.logo}
+					source={require('./img/walk2art-logo.png')} />
+			</View>
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	wrapper:{
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	logo: {
+		width:width*.25,
+		height:15,
+	}
+});
 
 module.exports = AboutView;

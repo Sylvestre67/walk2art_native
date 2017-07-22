@@ -6,11 +6,14 @@ import {
 	View,
 	Text,
 	TouchableWithoutFeedback,
-	Image
+	Image,
+	Dimensions
 } from 'react-native';
 
 import { connect } from 'react-redux'
 import { changeTab } from '../store/actions';
+
+const { width, height } = Dimensions.get('window');
 
 class _Container extends React.Component {
 
@@ -20,17 +23,20 @@ class _Container extends React.Component {
 	}
 
 	render() {
+		const active = this.props.tabs.index;
 		const tabs = this.props.tabs.tabs.map((tab,index,tabs) => {
-			return <View
-					key={index}>
-						<TouchableWithoutFeedback
-							onPress={() => {this._changeTab(index)}}>
-							<Icon
-								name={tab.icon.name}
-								type={tab.icon.type} />
-						</TouchableWithoutFeedback>
+			return <TouchableWithoutFeedback
+				key={index}
+				onPress={() => {this._changeTab(index)}}>
+				<View
+					style={(this.props.tabs.index === index) ? styles.active : styles.inactive}>
+					<Icon
+						name={tab.icon.name}
+						type={tab.icon.type} />
 					</View>
-		});
+			</TouchableWithoutFeedback>
+
+		},{active: 0});
 
 		return (
 			<View style={styles.footer}>
@@ -59,9 +65,25 @@ const styles = StyleSheet.create({
 	footer: {
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
+	},
+	active: {
+		flex:1,
+		height:40,
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: width/3,
+		backgroundColor:'#eeeeee'
+	},
+	inactive: {
+		flex:1,
+		height:40,
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: width/3,
 	}
+
 });
 
 module.exports = Footer;
