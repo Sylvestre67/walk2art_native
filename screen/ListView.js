@@ -7,6 +7,7 @@ import {
 	Button,
 	StyleSheet,
 	TouchableOpacity,
+	TouchableWithoutFeedback,
 	ScrollView,
 	Text,
 	Image,
@@ -15,33 +16,43 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { fetchPlaces } from '../store/actions';
+import { fetchPlaces, refreshActivePlace } from '../store/actions';
+
+import PlaceCard from '../component/PlaceCard';
 
 const { width, height } = Dimensions.get('window');
 class _Container extends React.Component {
-
 
 	componentDidMount(){
 		this.props.fetchPlaces();
 	}
 
-	_renderPlacesImages(){
+	_renderPlacesImages(props){
 		return _.values(this.props.places.dict).map((place,index,places) => {
-			return <View key={place.id} style={styles.imageWrap}>
-				<Image source={{uri: place.images[0].image_url}} style={styles.image} />
-			</View>
-		})
+			return <TouchableWithoutFeedback
+					key={place.id}
+					onPress={() => {this.props.refreshActivePlace(place)}}>
+						<View key={place.id} style={styles.imageWrap}>
+							<Image source={{uri: place.images[0].image_url}} style={styles.image} />
+						</View>
+					</TouchableWithoutFeedback>
+		},this)
 	}
+
 	render() {
 		return (
 			<ScrollView>
 				<View style={styles.scroll}>
-					{this._renderPlacesImages()}
+					{this._renderPlacesImages(this.props)}
 				</View>
 			</ScrollView>
 		);
 	}
 }
+
+/*<View style={styles.card}>
+ <PlaceCard />
+ </View>*/
 
 
 const styles = StyleSheet.create({
@@ -57,8 +68,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	image:{
-		width:width*.25,
+		width: width*.25,
+		//height: 2 * height,
 		height:width*.25,
+	},
+	card:{
+		height:height*.25,
+		bottom:0,
 	}
 });
 
@@ -73,6 +89,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchPlaces: () => {
 			dispatch(fetchPlaces())
+		},
+		refreshActivePlace: (place) => {
+			dispatch(refreshActivePlace(place))
 		}
 	}
 };
